@@ -13,6 +13,33 @@
   <body>
     <div class="container">
       <h3 class="header"><%= title %></h3>
+      <h5>100 random locations sunrise and sunset times</h5>
+      <br />
+
+      <table>
+        <head>
+          <td>Sunrise</td>
+          <td>Sunset</td>
+          <td>Day Length</td>
+        </head>
+
+        <tbody>
+          <!-- prettier-ignore -->
+          <% if (locationsDaylightHours) { %>
+            <% locationsDaylightHours.map(location => { %>
+              <tr>
+                <% if (location.status === 'OK') { %>
+                  <td><%= location.results.sunrise %></td>
+                  <td><%= location.results.sunset %></td>
+                  <td><%= location.results.day_length %></td>
+                <% } else { %>
+                  <td colspan="3">There was an error (status code: <%= location.status %> )</p>
+                <% } %>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
