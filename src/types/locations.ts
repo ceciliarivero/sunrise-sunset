@@ -17,4 +17,8 @@ export interface LocationDaylightData {
     astronomical_twilight_end: string;
   };
   status: string;
+  coords: {
+    lat: number;
+    lng: number;
+  };
 }

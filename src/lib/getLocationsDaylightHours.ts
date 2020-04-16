@@ -13,14 +13,20 @@ export async function getLocationsDaylightHours() {
       const { lat, lng } = location;
       const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}`;
 
-      return fetch(url, { method: 'GET' }).then((response) => {
+      const locationData: LocationDaylightData = await fetch(url, {
+        method: 'GET'
+      }).then((response) => {
         return response.json();
       });
+
+      locationData['coords'] = { lat, lng };
+
+      return locationData;
     },
     { concurrency: 5 }
   )
-    .then((result: LocationDaylightData[]) => {
-      return result;
+    .then((locationsData) => {
+      return locationsData;
     })
     .catch((err) => {
       console.log('Error:', err.message);

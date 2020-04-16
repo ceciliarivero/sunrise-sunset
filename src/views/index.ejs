@@ -18,6 +18,8 @@
 
       <table>
         <head>
+          <td>Latitude</td>
+          <td>Longitude</td>
           <td>Sunrise</td>
           <td>Sunset</td>
           <td>Day Length</td>
@@ -29,6 +31,8 @@
             <% locationsDaylightHours.map(location => { %>
               <tr>
                 <% if (location.status === 'OK') { %>
+                  <td><%= location.coords.lat %></td>
+                  <td><%= location.coords.lng %></td>
                   <td><%= location.results.sunrise %></td>
                   <td><%= location.results.sunset %></td>
                   <td><%= location.results.day_length %></td>
