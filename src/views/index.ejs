@@ -33,7 +33,7 @@
                   <td><%= location.results.sunset %></td>
                   <td><%= location.results.day_length %></td>
                 <% } else { %>
-                  <td colspan="3">There was an error (status code: <%= location.status %> )</p>
+                  <td colspan="3">There was an error loading this location's data (status code: <%= location.status %> )</p>
                 <% } %>
               </tr>
             <% }) %>
