@@ -10,14 +10,13 @@ async function getDataFromAPI(location: Location) {
 
   return await fetch(url, {
     method: 'GET'
-  }).then((response) => {
-    return response.json();
   });
 }
 
 async function getLocationData(location: Location) {
   const { lat, lng } = location;
-  const locationData: LocationDaylightData = await getDataFromAPI(location);
+  const locationDataFromAPI = await getDataFromAPI(location);
+  const locationData: LocationDaylightData = await locationDataFromAPI.json();
 
   locationData['coords'] = { lat, lng };
 
@@ -27,19 +26,15 @@ async function getLocationData(location: Location) {
 export async function getLocationsDaylightHours() {
   const locations: Location[] = generateLocations();
 
-  const locationsDaylightHours = Bluebird.map(
-    locations,
-    (location) => {
-      return getLocationData(location);
-    },
-    { concurrency: 5 }
-  )
-    .then((locationsData) => {
-      return locationsData;
-    })
-    .catch((err) => {
-      console.log('Error:', err.message);
-    });
-
-  return locationsDaylightHours;
+  try {
+    return Bluebird.map(
+      locations,
+      (location) => {
+        return getLocationData(location);
+      },
+      { concurrency: 5 }
+    );
+  } catch (err) {
+    console.log('Error:', err.message);
+  }
 }
