@@ -8,9 +8,7 @@ async function getDataFromAPI(location: Location) {
   const { lat, lng } = location;
   const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}`;
 
-  return await fetch(url, {
-    method: 'GET'
-  });
+  return await fetch(url, { method: 'GET' });
 }
 
 async function getLocationData(location: Location) {
